@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mountainSelect.appendChild(option);
   });
 
-  // DISPLAY MOUNTAIN INFORMATION
+  // DISPLAY MOUNTAIN INFORMATION IN A TABLE FORMAT
   const viewMountain = () => {
     const selectedMountain = mountainSelect.value;
     const mountain = mountainsArray.find((m) => m.name === selectedMountain);
@@ -31,16 +31,41 @@ document.addEventListener("DOMContentLoaded", () => {
       mountainInfoContainer.innerHTML = `
         <div class="result-box">
           <h3>${mountain.name}</h3>
-          <p><strong>Elevation:</strong> ${mountain.elevation} feet</p>
-          <p><strong>Difficulty:</strong> ${mountain.effort}</p>
-          <p>${mountain.desc}</p>
-          ${
-            mountain.img
-              ? `<img src="../mountain_images/${mountain.img}" alt="${mountain.name}" class="result-image" />`
-              : ""
-          }
-          <p><strong>Today's Sunrise and Sunset:</strong></p>
-          <p id="sunrise-sunset">Fetching data...</p>
+          <table border="1" style="width: 100%; border-collapse: collapse; margin-bottom: 10px;">
+            <tr>
+              <th style="padding: 8px; text-align: left;">Elevation</th>
+              <td style="padding: 8px;">${mountain.elevation} feet</td>
+            </tr>
+            <tr>
+              <th style="padding: 8px; text-align: left;">Difficulty</th>
+              <td style="padding: 8px;">${mountain.effort}</td>
+            </tr>
+            <tr>
+              <th style="padding: 8px; text-align: left;">Description</th>
+              <td style="padding: 8px;">${mountain.desc}</td>
+            </tr>
+            <tr>
+              <th style="padding: 8px; text-align: left;">Image</th>
+              <td style="padding: 8px;">
+                ${
+                  mountain.img
+                    ? `<img src="../images/${mountain.img}" alt="${mountain.name}" style="max-width: 100%; height: auto;" />`
+                    : "N/A"
+                }
+              </td>
+            </tr>
+          </table>
+          <h4>Today's Sunrise and Sunset</h4>
+          <table id="sunrise-sunset-table" border="1" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+            <tr>
+              <th style="padding: 8px; text-align: left;">Sunrise</th>
+              <td id="sunrise-time" style="padding: 8px;">Fetching data...</td>
+            </tr>
+            <tr>
+              <th style="padding: 8px; text-align: left;">Sunset</th>
+              <td id="sunset-time" style="padding: 8px;">Fetching data...</td>
+            </tr>
+          </table>
         </div>
       `;
 
@@ -82,19 +107,23 @@ document.addEventListener("DOMContentLoaded", () => {
           sunsetUTC
         );
 
-        // Display the converted times in EST
-        document.getElementById("sunrise-sunset").innerHTML = `
-          <p><strong>Sunrise:</strong> ${sunriseEST} EST</p>
-          <p><strong>Sunset:</strong> ${sunsetEST} EST</p>
-        `;
+        // Display the converted times in the table cells
+        document.getElementById(
+          "sunrise-time"
+        ).textContent = `${sunriseEST} EST`;
+        document.getElementById("sunset-time").textContent = `${sunsetEST} EST`;
       } else {
-        document.getElementById("sunrise-sunset").textContent =
-          "Unable to retrieve sunrise/sunset times.";
+        document.getElementById("sunrise-time").textContent =
+          "Unable to retrieve";
+        document.getElementById("sunset-time").textContent =
+          "Unable to retrieve";
       }
     } catch (error) {
       console.error("Error details:", error);
-      document.getElementById("sunrise-sunset").textContent =
-        "Error fetching sunrise/sunset times.";
+      document.getElementById("sunrise-time").textContent =
+        "Error fetching time";
+      document.getElementById("sunset-time").textContent =
+        "Error fetching time";
     }
   };
 
