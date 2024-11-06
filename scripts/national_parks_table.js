@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // CCREATE TABLE
+    // CREATE TABLE
     const table = document.createElement("table");
     table.setAttribute("border", "1"); // OPTIONAL: BORDER FOR VISIBILITY
 
