@@ -69,14 +69,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Create a table element
+    // CCREATE TABLE
     const table = document.createElement("table");
-    table.setAttribute("border", "1"); // Optional: adds a border for visibility
+    table.setAttribute("border", "1"); // OPTIONAL: BORDER FOR VISIBILITY
 
-    // Create the table header row
+    // CREATE THE TABLE HEADER ROW
     const headerRow = document.createElement("tr");
 
-    // Define header titles
+    // CREATE HEADER TITLES
     const headers = ["Park Name", "Location", "Address", "Phone", "Website"];
     headers.forEach((headerText) => {
       const th = document.createElement("th");
@@ -86,31 +86,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
     table.appendChild(headerRow);
 
-    // Create a table row for each park in the filtered list
+    // CREATE A TABLE ROW FOR PARKS
     parks.forEach((park) => {
       const row = document.createElement("tr");
 
-      // Park Name
+      // PARK NAME
       const nameCell = document.createElement("td");
       nameCell.textContent = park.LocationName;
       row.appendChild(nameCell);
 
-      // Location (City, State)
+      // PARK LOCATION (CITY, STATE)
       const locationCell = document.createElement("td");
       locationCell.textContent = `${park.City}, ${park.State}`;
       row.appendChild(locationCell);
 
-      // Address
+      // ADDRESS
       const addressCell = document.createElement("td");
       addressCell.textContent = park.Address || "N/A";
       row.appendChild(addressCell);
 
-      // Phone
+      // PHONE
       const phoneCell = document.createElement("td");
       phoneCell.textContent = park.Phone || "N/A";
       row.appendChild(phoneCell);
 
-      // Website Link
+      // WEBSITE LINK
       const websiteCell = document.createElement("td");
       if (park.Visit) {
         const link = document.createElement("a");
@@ -123,11 +123,11 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       row.appendChild(websiteCell);
 
-      // Add the row to the table
+      // ADD THE ROW TO THE TABLE
       table.appendChild(row);
     });
 
-    // Add the complete table to the results div
+    // COMPLETE TABLE TO RESULTS DIV
     resultsDiv.appendChild(table);
   };
 
